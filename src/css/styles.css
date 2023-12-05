@@ -17,6 +17,8 @@ html {
   --color-button: #c951e7;
   --color-bg: #030616;
   --color-dots: #7429c6;
+  --color-button-darker: #993cb1;
+  --color-game-bg: rgb(14, 17, 37);
 }
 
 /* Typography */
@@ -29,9 +31,12 @@ h1 {
 }
 button {
   font-size: 1.4rem;
+  color: var(--color-text);
+  font-weight: 600;
 }
 .small-text {
   font-size: 1.2rem;
+  color: var(--color-secondary);
 }
 
 /* Background */
@@ -42,6 +47,9 @@ body {
   background-repeat: no-repeat;
   min-height: 100vh;
   margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Showcase */
@@ -52,7 +60,110 @@ body {
   border-radius: 2%;
   box-shadow: 2px 4px 2px #141414;
   text-align: center;
+  margin: 2rem 0;
 }
 .showcase__heading {
   letter-spacing: 1.5rem;
+}
+
+/* Tries & mistakes*/
+.tries-mistakes {
+  display: inline-block;
+  display: flex;
+  align-items: center;
+}
+.tries-mistakes__context {
+  margin-right: 1rem;
+}
+.tries__dots {
+  display: flex;
+}
+
+.tries__dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 100%;
+  background-color: var(--color-secondary);
+  margin-right: 0.5rem;
+}
+
+.tries__dots--highlight {
+  background-color: var(--color-dots);
+}
+
+.mistakes--word {
+  font-size: 2rem;
+  color: var(--color-showcase);
+}
+
+.tries-mistakes__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin-bottom: 2rem;
+}
+
+/* Input */
+.input__field {
+  width: 4rem;
+  height: 4rem;
+  font-size: 2rem;
+  outline: none;
+  text-align: center;
+  background-color: transparent;
+  border: 2px solid var(--color-secondary);
+  border-radius: 5px;
+  color: transparent;
+  text-shadow: 0 0 0 var(--color-text);
+  margin-right: 1rem;
+}
+.input__field:focus {
+  border-color: var(--color-primary);
+}
+.input__field-container {
+  margin: 4rem 0;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Button */
+.btn {
+  outline: none;
+  padding: 1rem 3rem;
+  width: 12rem;
+  text-align: center;
+  background-color: var(--color-button);
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 4px 1px var(--color-primary);
+}
+
+.btn:hover {
+  background-color: var(--color-button-darker);
+}
+
+.game-button__container {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* game */
+.game {
+  width: 42.5rem;
+  background-color: var(--color-game-bg);
+  border-radius: 10px;
+}
+.game__container {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 3rem auto;
 }

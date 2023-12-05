@@ -12,5 +12,60 @@
     />
     <link rel="stylesheet" href="./src/css/styles.css" />
   </head>
-  <body></body>
+  <body>
+    <!-- Game -->
+    <div class="game">
+      <div class="game__container">
+        <img
+          class="game__image"
+          alt="word scramble"
+          src="./src/images/Word-Scramblle.svg"
+        />
+        <div class="showcase__container">
+          <h1 class="showcase__heading">relowf</h1>
+        </div>
+        <div class="tries-mistakes__container">
+          <div class="tries-mistakes">
+            <span class="tries-mistakes__context small-text"
+              >Tries <span class="tries--number">(a/b)</span>
+            </span>
+            <span class="tries__dots">
+              <span class="tries__dot tries__dots--highlight" id="dot-1"></span>
+              <span class="tries__dot tries__dots" id="dot-2"></span>
+              <span class="tries__dot tries__dots" id="dot-3"></span>
+              <span class="tries__dot tries__dots" id="dot-4"></span>
+              <span class="tries__dot tries__dots" id="dot-5"></span>
+            </span>
+          </div>
+          <div class="tries-mistakes">
+            <span class="tries-mistakes__context small-text"
+              >Mistakes <span class="mistakes--word">a,b,c,d</span>
+            </span>
+          </div>
+        </div>
+        <div class="input__field-container">
+          <input
+            type="text"
+            required
+            autofocus
+            max-length="1"
+            class="input__field"
+            id="field-1"
+          />
+          <input
+            type="text"
+            required
+            autofocus
+            max-length="1"
+            class="input__field"
+            id="field-2"
+          />
+        </div>
+        <div class="game-button__container">
+          <button type="button" class="reset__button btn">Reset</button>
+          <button type="button" class="random__button btn">Random</button>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -1,0 +1,19 @@
+<!-- tries & mistakes component -->
+<div class="tries-mistakes">
+  <span class="tries-mistakes__context small-text"
+    >Tries <span class="tries--number">(a/b)</span>
+  </span>
+  <span class="tries__dots">
+    <span class="tries__dot tries__dots--highlight" id="dot-1"></span>
+    <span class="tries__dot tries__dots" id="dot-2"></span>
+    <span class="tries__dot tries__dots" id="dot-3"></span>
+    <span class="tries__dot tries__dots" id="dot-4"></span>
+    <span class="tries__dot tries__dots" id="dot-5"></span>
+  </span>
+</div>
+
+<div class="tries-mistakes">
+  <span class="tries-mistakes__context small-text"
+    >Mistakes <span class="mistakes--word">a,b,c,d</span>
+  </span>
+</div>
