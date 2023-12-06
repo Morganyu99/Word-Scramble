@@ -11,6 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./src/css/styles.css" />
+    <script type="module" src="./src/js/controller.js"></script>
   </head>
   <body>
     <!-- Game -->
@@ -21,9 +22,9 @@
           alt="word scramble"
           src="./src/images/Word-Scramblle.svg"
         />
-        <div class="showcase__container">
+        <header class="showcase__container">
           <h1 class="showcase__heading">relowf</h1>
-        </div>
+        </header>
         <div class="tries-mistakes__container">
           <div class="tries-mistakes">
             <span class="tries-mistakes__context small-text"
@@ -38,12 +39,11 @@
             </span>
           </div>
           <div class="tries-mistakes">
-            <span class="tries-mistakes__context small-text"
-              >Mistakes <span class="mistakes--word">a,b,c,d</span>
-            </span>
+            <span class="tries-mistakes__context small-text">Mistakes </span>
+            <span class="mistakes--word">a,b,c,d</span>
           </div>
         </div>
-        <div class="input__field-container">
+        <div class="input__fields-container">
           <input
             type="text"
             required
@@ -52,10 +52,10 @@
             class="input__field"
             id="field-1"
           />
+
           <input
             type="text"
             required
-            autofocus
             max-length="1"
             class="input__field"
             id="field-2"

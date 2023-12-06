@@ -70,7 +70,7 @@ body {
 .tries-mistakes {
   display: inline-block;
   display: flex;
-  align-items: center;
+  align-items: end;
 }
 .tries-mistakes__context {
   margin-right: 1rem;
@@ -100,7 +100,7 @@ body {
 .tries-mistakes__container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: end;
   width: 80%;
   margin-bottom: 2rem;
 }
@@ -117,17 +117,18 @@ body {
   border-radius: 5px;
   color: transparent;
   text-shadow: 0 0 0 var(--color-text);
-  margin-right: 1rem;
+  /* margin-right: 1rem; */
 }
 .input__field:focus {
   border-color: var(--color-primary);
 }
-.input__field-container {
+.input__fields-container {
   margin: 4rem 0;
   display: flex;
   flex-wrap: nowrap;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+  width: 90%;
 }
 
 /* Button */
