@@ -48,8 +48,9 @@ const controlInput = function (value, index, isdisabled = false) {
     return;
   }
 
+  console.log(value);
   //check if input is correct for the index
-  if (model.checkWord(value, index)) {
+  if (model.checkWord(value, index) && value) {
     //same for all cases
     gameView.inputClearAndSubs(index, value);
     model.pushWrittenWord(value, index);
@@ -73,16 +74,18 @@ const controlInput = function (value, index, isdisabled = false) {
   }
 
   //if not correct
-  gameView.inputClearAndSubs(index, value);
-  const result = model.pushInMistakes(index, value);
-  if (!result) {
-    controlGame(RESET);
-    return;
+  if (value) {
+    gameView.inputClearAndSubs(index, value);
+    const result = model.pushInMistakes(index, value);
+    if (!result) {
+      controlGame(RESET);
+      return;
+    }
+    gameView.resetTriesMistakes(
+      model.wordObject.tries,
+      model.wordObject.wordArrCorrectAndWrong[index].mistake
+    );
   }
-  gameView.resetTriesMistakes(
-    model.wordObject.tries,
-    model.wordObject.wordArrCorrectAndWrong[index].mistake
-  );
 };
 
 const init = async function () {

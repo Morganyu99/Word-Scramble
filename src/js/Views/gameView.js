@@ -62,9 +62,9 @@ class GameView {
       //check if the input is correct by sending to controller
 
       const index = +e.target.id.slice().split("").pop();
-      const value = this._inputElements[index].value;
+      const value = e.data ? e.data.slice().split("").pop() : "";
 
-      handler(e.data[0], index);
+      handler(value.toLowerCase(), index);
     };
 
     // as input elements dom keep changing
