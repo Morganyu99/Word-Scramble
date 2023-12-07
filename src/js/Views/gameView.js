@@ -64,7 +64,7 @@ class GameView {
       const index = +e.target.id.slice().split("").pop();
       const value = this._inputElements[index].value;
 
-      handler(e.data, index);
+      handler(e.data[0], index);
     };
 
     // as input elements dom keep changing
