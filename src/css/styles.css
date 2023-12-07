@@ -106,6 +106,7 @@ body {
   border-radius: 2%;
   box-shadow: 2px 4px 2px #141414;
   text-align: center;
+  cursor: default;
 }
 .showcase__heading {
   letter-spacing: 1.5rem;
@@ -148,6 +149,7 @@ body {
   align-items: end;
   width: 80%;
   margin-bottom: 3rem;
+  cursor: default;
 }
 @media screen and (max-width: 450px) {
   .tries-mistakes__container {
@@ -195,6 +197,7 @@ body {
   border-radius: 5px;
   color: transparent;
   text-shadow: 0 0 0 var(--color-text);
+  cursor: pointer;
 }
 .input__field:focus {
   border-color: var(--color-primary);
@@ -253,6 +256,7 @@ body {
   border-radius: 5px;
   border: none;
   box-shadow: 0 4px 1px var(--color-primary);
+  cursor: pointer;
 }
 
 .btn:hover {

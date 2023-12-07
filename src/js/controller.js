@@ -1,6 +1,9 @@
 import gameView from "./Views/gameView.js";
 import { FOCUS, RANDOM, RESET } from "./config.js";
 import * as model from "./model.js";
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+import { async } from "regenerator-runtime";
 
 const getRandom = async function () {
   await model.getScrambledWord();
