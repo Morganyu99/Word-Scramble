@@ -1,12 +1,12 @@
-import { API_TYPES, API_URL, MAX_LETTERS } from "./config.js";
+import { API_TYPES, API_URL, MAX_LETTERS, MAX_TRIES } from "./config.js";
 import { AJAX } from "./helpers.js";
 
 export const wordObject = {
   wordName: "",
   scrambledWord: "",
   wordArrCorrectAndWrong: [],
-  tries: 0,
-  written: "",
+  tries: MAX_TRIES,
+  written: [],
 };
 
 const fetchWord = async function () {
@@ -24,7 +24,9 @@ const insertCorrectWord = function (wordArr) {
   wordObject.wordArrCorrectAndWrong = wordArr.map((letter) => {
     return { correct: letter, mistake: [] };
   });
-  console.log(wordObject);
+};
+export const resetWritten = function (wordLength) {
+  wordObject.written = new Array(wordLength);
 };
 
 export const getScrambledWord = async function () {
@@ -38,9 +40,47 @@ export const getScrambledWord = async function () {
   const scrambledWord = wordArr.join("");
   wordObject.scrambledWord = scrambledWord;
   insertCorrectWord([...word]);
+  resetWritten(word.length);
+};
+
+export const resetTries = function () {
+  wordObject.tries = MAX_TRIES;
 };
 
 export const resetWordObject = function () {
   wordObject.wordArrCorrectAndWrong.map((el) => (el.mistake = []));
-  wordObject.tries = 0;
+  resetTries();
+  resetWritten(wordObject.wordName.length);
+};
+
+export const pushWrittenWord = function (value, index) {
+  wordObject.written[+index] = value.toLowerCase();
+};
+
+export const checkWord = function (value, index) {
+  if (wordObject.wordName[index] === value) return true;
+  return false;
+};
+
+export const checkallWordsinWritten = function () {
+  if (
+    !wordObject.written.includes("") &&
+    !(wordObject.written.join("") !== wordObject.wordName)
+  )
+    return true;
+
+  return false;
+};
+
+export const pushInMistakes = function (index, value) {
+  wordObject.wordArrCorrectAndWrong[index].mistake.push(value);
+  const result = removeTries();
+
+  return result;
+};
+const removeTries = function () {
+  wordObject.tries--;
+
+  if (wordObject.tries < 0) return false;
+  return true;
 };

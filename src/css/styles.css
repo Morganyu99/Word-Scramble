@@ -146,6 +146,9 @@ body {
 .btn:hover {
   background-color: var(--color-button-darker);
 }
+.btn:disabled {
+  background-color: var(--color-button-darker);
+}
 
 .game-button__container {
   width: 70%;

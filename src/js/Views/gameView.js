@@ -1,76 +1,97 @@
-import { CURRENT, MAX_TRIES, NEXT, RANDOM, RESET } from "../config.js";
+import { MAX_TRIES, RANDOM, RESET, FOCUS } from "../config.js";
 import { appendHTML, changeInnerHTML, changeText } from "../helpers.js";
 
 class GameView {
   _parentElement = document.querySelector(".game__container");
   _inputElements = document.querySelectorAll(".input__field");
   _wordDetails;
+  _inputHandle;
 
   addClickHandler(handler) {
-    this._parentElement.addEventListener("click", function (e) {
+    // for this keyword to be linked to gameView
+    const targetChecker = function (e) {
       if (e.target.closest(".reset__button")) handler(RESET);
       if (e.target.closest(".random__button")) handler(RANDOM);
-    });
+      if (e.target.closest(".input__field")) {
+        const id = e.target.id.slice().split("").pop();
+        this.inputFocusNext(id);
+        handler(FOCUS, e.target.id.slice().split("").pop());
+      }
+    };
+
+    //click event handler
+    this._parentElement.addEventListener("click", targetChecker.bind(this));
   }
-  inputFocusNext(nextIndex) {
-    this._inputElements[nextIndex].focus();
+  //disable input
+  inputDisable(index) {
+    this._inputElements[index].setAttribute("disabled", "true");
+    this._inputElements[index].style.border = "none";
+    this._inputElements[index].style.fontSize = "3rem";
   }
+
+  //focus the input
+  inputFocusNext(nextIndex, handler) {
+    //checking if input is disabled
+    const attributeRes =
+      this._inputElements[nextIndex].getAttribute("disabled");
+    //callback if the input is disabled
+    if (attributeRes) {
+      handler("", nextIndex, true);
+      return;
+    }
+
+    [...this._inputElements].map((el) => el?.setAttribute("placeholder", ""));
+    this._inputElements[nextIndex]?.focus();
+    this._inputElements[nextIndex]?.setAttribute("placeholder", "_");
+
+    return;
+  }
+
+  //substitute the prev value with new value in input
   inputClearAndSubs(index, value) {
     this._inputElements[index].value = value;
   }
 
-  addInputHandler(handler) {
-    //So that event listener can be removed when needed
-    const inputHandle = function (e) {
-      //check state
-      console.log(e);
-      const index = e.target.id.slice().split("").pop();
-
-      const value = this._inputElements[index].value;
-      console.log(value);
-      //if only 1 letter currently-> go next(or) more than 1 letter -> replace and go next
-      if (value.length >= 1) handler(e.data, index, NEXT); //////
-      //currently 0 ->stay
-      if (value.length === 0) handler(e.data, index, CURRENT);
-      //previous 0 current 0-> go back
-    };
-    //as input elements dom keep changing
-    this._inputElements = document.querySelectorAll(".input__field");
-    //Auto focus on input for initialization
-    this.inputFocusNext(0);
-    console.log(this._inputElements);
+  //to remove input listener
+  removeEventListenersInput() {
     [...this._inputElements].map((el) =>
-      el.addEventListener("input", inputHandle.bind(this))
+      el.removeEventListener("input", this._inputHandle)
     );
   }
 
-  updateShowcase(wordDetails) {
+  addInputHandler(handler) {
+    this._inputHandle = function (e) {
+      //check if the input is correct by sending to controller
+
+      const index = +e.target.id.slice().split("").pop();
+      const value = this._inputElements[index].value;
+
+      handler(e.data, index);
+    };
+
+    // as input elements dom keep changing
+    this._inputElements = document.querySelectorAll(".input__field");
+    //Auto focus on input for initialization
+    this.inputFocusNext(0);
+    //adding input event listener
+    [...this._inputElements].map((el) =>
+      el.addEventListener("input", this._inputHandle.bind(this))
+    );
+  }
+
+  //Update showcase with scrambled word
+  updateShowcase(wordDetails, success = false) {
+    if (success) {
+      changeText("showcase__heading", wordDetails);
+      return;
+    }
     this._wordDetails = wordDetails;
     changeText("showcase__heading", this._wordDetails.scrambledWord);
   }
 
+  //reset game html
   resetGame() {
-    changeInnerHTML(
-      "tries-mistakes__container",
-      `
-    <div class="tries-mistakes">
-    <span class="tries-mistakes__context small-text"
-      >Tries <span class="tries--number">(0/${MAX_TRIES})</span>
-    </span>
-    <span class="tries__dots">
-      <span class="tries__dot tries__dots" id="dot-1"></span>
-      <span class="tries__dot tries__dots" id="dot-2"></span>
-      <span class="tries__dot tries__dots" id="dot-3"></span>
-      <span class="tries__dot tries__dots" id="dot-4"></span>
-      <span class="tries__dot tries__dots" id="dot-5"></span>
-    </span>
-  </div>
-  <div class="tries-mistakes">
-    <span class="tries-mistakes__context small-text">Mistakes </span>
-    <span class="mistakes--word">_,_,_,_,_</span>
-  </div>
-    `
-    );
+    this.resetTriesMistakes(MAX_TRIES, []);
     changeInnerHTML("input__fields-container", "");
     this._wordDetails.wordName.split("").map((letter, i) => {
       appendHTML(
@@ -85,6 +106,49 @@ class GameView {
         `
       );
     });
+  }
+  disableReset(state = true) {
+    if (state) {
+      this._parentElement
+        .querySelector(".reset__button")
+        .setAttribute("disabled", "true");
+      return;
+    }
+    this._parentElement
+      .querySelector(".reset__button")
+      .removeAttribute("disabled");
+  }
+  resetTriesMistakes(tries, mistakes) {
+    const triesHTML = Array.from({ length: MAX_TRIES }, (_, i) => {
+      if (i < tries) {
+        return `<span class="tries__dot tries__dots--highlight" id="dot-${
+          i + 1
+        }"></span>`;
+      }
+      return `<span class="tries__dot" id="dot-${i + 1}"></span>`;
+    }).join("");
+    const mistakesHTML = Array.from({ length: MAX_TRIES }, (_, i) => {
+      if (i < MAX_TRIES - 1) return (mistakes[i] ? mistakes[i] : "_") + `,`;
+      if (i === MAX_TRIES - 1) return mistakes[i] ? mistakes[i] : "_";
+    }).join("");
+
+    changeInnerHTML(
+      "tries-mistakes__container",
+      `
+      <div class="tries-mistakes">
+      <span class="tries-mistakes__context small-text"
+        >Tries <span class="tries--number">(${tries}/${MAX_TRIES})</span>
+      </span>
+      <span class="tries__dots">
+      ${triesHTML}  
+      </span>
+    </div>
+    <div class="tries-mistakes">
+      <span class="tries-mistakes__context small-text">Mistakes </span>
+      <span class="mistakes--word">${mistakesHTML}</span>
+    </div>
+      `
+    );
   }
 }
 

@@ -4,6 +4,4 @@ export const RESET = "reset";
 export const RANDOM = "random";
 export const MAX_TRIES = 5;
 export const MAX_LETTERS = 8;
-export const CURRENT = 0;
-export const NEXT = 1;
-export const PREV = -1;
+export const FOCUS = "focus";
