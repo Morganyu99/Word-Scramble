@@ -25,8 +25,6 @@ class GameView {
   //disable input
   inputDisable(index) {
     this._inputElements[index].setAttribute("disabled", "true");
-    this._inputElements[index].style.border = "none";
-    this._inputElements[index].style.fontSize = "3rem";
   }
 
   //focus the input
@@ -107,6 +105,8 @@ class GameView {
       );
     });
   }
+
+  //if won disable reset button
   disableReset(state = true) {
     if (state) {
       this._parentElement

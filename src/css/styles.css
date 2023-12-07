@@ -18,7 +18,14 @@ html {
   --color-bg: #030616;
   --color-dots: #7429c6;
   --color-button-darker: #993cb1;
-  --color-game-bg: rgb(24, 28, 54);
+  --color-game-bg: rgb(21, 24, 46);
+  --max-width: 60rem;
+}
+
+@media screen and (min-width: 1700px) {
+  :root {
+    --max-width: 110rem;
+  }
 }
 
 /* Typography */
@@ -37,6 +44,45 @@ button {
 .small-text {
   font-size: 1.2rem;
   color: var(--color-secondary);
+}
+@media screen and (max-width: 450px) {
+  body {
+    font-size: 2rem;
+  }
+  h1 {
+    font-size: 3.2rem;
+  }
+  button {
+    font-size: 1.4rem;
+  }
+  .small-text {
+    font-size: 1.2rem;
+  }
+}
+@media screen and (min-width: 1024px) {
+  h1 {
+    font-size: 5rem;
+  }
+  .small-text {
+    font-size: 1.5rem;
+  }
+  button {
+    font-size: 2rem;
+  }
+}
+@media screen and (min-width: 1700px) {
+  body {
+    font-size: 4rem;
+  }
+  h1 {
+    font-size: 7rem;
+  }
+  button {
+    font-size: 4.5rem;
+  }
+  .small-text {
+    font-size: 3.5rem;
+  }
 }
 
 /* Background */
@@ -60,7 +106,6 @@ body {
   border-radius: 2%;
   box-shadow: 2px 4px 2px #141414;
   text-align: center;
-  margin: 2rem 0;
 }
 .showcase__heading {
   letter-spacing: 1.5rem;
@@ -102,7 +147,40 @@ body {
   justify-content: space-between;
   align-items: end;
   width: 80%;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+}
+@media screen and (max-width: 450px) {
+  .tries-mistakes__container {
+    width: 95%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .tries-mistakes__container {
+    margin-top: 1.5rem;
+    margin-bottom: 5rem;
+  }
+  .tries__dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    margin-right: 0.7rem;
+  }
+  .mistakes--word {
+    font-size: 2.4rem;
+  }
+}
+@media screen and (min-width: 1700px) {
+  .tries-mistakes__container {
+    margin-top: 4rem;
+    margin-bottom: 10rem;
+  }
+  .tries__dot {
+    width: 2rem;
+    height: 2rem;
+    margin-right: 2rem;
+  }
+  .mistakes--word {
+    font-size: 4rem;
+  }
 }
 
 /* Input */
@@ -117,18 +195,52 @@ body {
   border-radius: 5px;
   color: transparent;
   text-shadow: 0 0 0 var(--color-text);
-  /* margin-right: 1rem; */
 }
 .input__field:focus {
   border-color: var(--color-primary);
 }
 .input__fields-container {
-  margin: 4rem 0;
+  margin: 1rem 0;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-evenly;
   align-items: center;
   width: 90%;
+}
+.input__field:disabled {
+  font-size: 3rem;
+  border: none;
+}
+
+@media screen and (max-width: 450px) {
+  .input__field {
+    width: 3rem;
+    height: 3rem;
+  }
+  .input__fields-container {
+    width: 95%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .input__field {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 10px;
+    font-size: 3rem;
+  }
+  .input__field:disabled {
+    font-size: 4rem;
+  }
+}
+@media screen and (min-width: 1700px) {
+  .input__field {
+    width: 10rem;
+    height: 10rem;
+    font-size: 7rem;
+  }
+  .input__field:disabled {
+    font-size: 8rem;
+  }
 }
 
 /* Button */
@@ -151,15 +263,45 @@ body {
 }
 
 .game-button__container {
-  width: 70%;
+  width: 85%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 3rem;
+}
+@media screen and (max-width: 450px) {
+  .game-button__container {
+    width: 95%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .btn {
+    padding: 1.5rem 4rem;
+    width: 17rem;
+    border-radius: 10px;
+  }
+  .game-button__container {
+    margin-top: 5rem;
+  }
+}
+@media screen and (min-width: 1700px) {
+  .btn {
+    padding: 2.5rem 6rem;
+    width: 30rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 4px var(--color-primary);
+  }
+  .game-button__container {
+    margin-top: 10rem;
+    margin-bottom: 2rem;
+  }
 }
 
 /* game */
 .game {
-  width: 42.5rem;
+  max-width: var(--max-width);
+  max-height: var(--max-width);
+  width: 60%;
   background-color: var(--color-game-bg);
   border-radius: 10px;
 }
@@ -170,4 +312,34 @@ body {
   justify-content: space-between;
   align-items: center;
   margin: 3rem auto;
+}
+
+@media screen and (max-width: 450px) {
+  .game {
+    width: 97%;
+  }
+  .game__container {
+    width: 95%;
+  }
+}
+
+/* Game image */
+
+.game__image {
+  width: 15rem;
+  margin-bottom: 2rem;
+  vertical-align: top;
+}
+
+@media screen and (max-width: 450px) {
+  .game__image {
+    width: 15rem;
+    margin: 1rem 0;
+  }
+}
+@media screen and (min-width: 1700px) {
+  .game__image {
+    width: 40rem;
+    margin: 5rem 0;
+  }
 }
